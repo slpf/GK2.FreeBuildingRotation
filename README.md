@@ -1,0 +1,1 @@
+A mod that lets you rotate buildings in Graveyard Keeper 2 in all four directions.

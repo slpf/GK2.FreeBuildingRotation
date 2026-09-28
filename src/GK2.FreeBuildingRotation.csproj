@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard21</TargetFramework>
+		<OutputType>Library</OutputType>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+    </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <DebugType>embedded</DebugType>
+        <Optimize>true</Optimize>
+        <DefineConstants>TRACE</DefineConstants>
+    </PropertyGroup>
+
+	<PropertyGroup>
+        <GK2RedDir>../deps</GK2RedDir>
+
+        <AssemblySearchPaths>
+            $(GK2RedDir)/BepInEx/core;
+            $(GK2RedDir)/Managed;
+            $(AssemblySearchPaths);
+        </AssemblySearchPaths>
+    </PropertyGroup>
+
+	<PropertyGroup>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+        <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    </PropertyGroup>
+
+	<ItemGroup>
+        <Reference Include="0Harmony">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="BepInEx">
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+
+	<ItemGroup>
+        <Reference Include="Assembly-CSharp" ExternallyResolved="true">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <Private>false</Private>
+        </Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Unity.Addressables">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Unity.ResourceManager">
+            <Private>false</Private>
+        </Reference>
+		<Reference Include="LazyBearTechnology">
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Sirenix.Serialization">
+            <Private>false</Private>
+        </Reference>	
+    </ItemGroup>
+
+    <Target Name="CopyToBuildFolder" AfterTargets="Build">
+        <PropertyGroup>
+            <DestDir>$(MSBuildProjectDirectory)\..\build\BepInEx\plugins\</DestDir>
+        </PropertyGroup>
+        <MakeDir Directories="$(DestDir)"/>
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DestDir)" SkipUnchangedFiles="true"/>
+    </Target>
+</Project>
